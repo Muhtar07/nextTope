@@ -2,7 +2,6 @@ const { Op } = require('sequelize');
 const { Task } = require('../db/models');
 const msToTime = require('../common/getTime');
 
-
 module.exports = {
   async getTasksUser(userId) {
     const tasks = await Task.findAll({
@@ -16,18 +15,7 @@ module.exports = {
     if (tasks instanceof Error) {
       throw tasks;
     }
-    const result = tasks.map((el) => {
-      const result = {};
-      result.task = el.task
-      result.id = el.id
-      result.beginning = el.beginning.toLocaleString();
-      result.time_spent = el.time_spent
-      if (el.dataValues.ending) {
-        result.ending = el.beginning.toLocaleString();
-      }
-      return result;
-    })
-    return result;
+    return tasks;
   },
 
   async createUserTask(userId, inputTask) {
@@ -56,12 +44,7 @@ module.exports = {
       throw createTask;
     }
 
-    createTask.dataValues.beginning = createTask.dataValues.beginning.toLocaleString();
-    const result = {};
-    result.id = createTask.id
-    result.task = createTask.task
-    result.beginning = createTask.beginning
-    return result;
+    return createTask;
   },
   async endingTask(userId, taskId) {
     const task = await Task.findOne({
@@ -91,12 +74,7 @@ module.exports = {
     if (taskEndingSave instanceof Error) {
       throw taskEndingSave;
     }
-    const result = {};
-    result.id = task.id;
-    result.task = task.task;
-    result.beginning = task.beginning.toLocaleString();
-    result.ending = task.ending.toLocaleString();
-    result.time_spent = task.time_spent;
-    return result;
+
+    return task;
   },
 };
