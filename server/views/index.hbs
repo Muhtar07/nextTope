@@ -1,0 +1,28 @@
+{{#if user}}
+{{> taskForm}}
+{{/if}}
+
+<div class="row" data-tasks>
+  <table border="1" id="table">
+   <caption>Timesheet</caption>
+   <tr>
+    <th>Task</th>
+    <th>Beginning</th>
+    <th>Ending</th>
+    <th>Time spent</th>
+    <th>Action</th>
+   </tr>
+  {{#each tasks}}
+    <tr data-task = "{{this.id}}"><td>{{this.task}}</td><td>{{this.beginning}}</td><td>{{this.ending}}</td><td>{{this.time_spent}}</td>
+    <td>
+        {{#if this.ending}}
+        <p>The task is finished</p>
+        {{else}}
+        <a href="#">STOP</a>
+        {{/if}}
+    </td></tr>
+  {{/each}}
+   
+   
+  </table>
+</div>
